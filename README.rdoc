@@ -51,6 +51,25 @@ The {Mailchimp API}[http://www.mailchimp.com/api/1.3/] now supports pagination f
 
 Please note that as of version 3.0.0 Hominid no longer includes support for the {Mailchimp Export API}[http://www.mailchimp.com/api/export/].
 
+== STS Usage
+
+You can make use of MailChimp's {STS API}[http://apidocs.mailchimp.com/sts/1.0/] by creating an STS object:
+
+  sts = Hominid::STS.new('your_api_key')
+
+All of the configuration options available above can be included here, as well:
+
+  sts = Hominid::STS.new('your_api_key', {:secure => true, :timeout => 60})
+
+You can run any of the commands listed in the {STS API Documentation}[http://apidocs.mailchimp.com/sts/1.0/]:
+
+  sts.list_verified_email_addresses
+  sts.verify_email_address('joe@public.com')
+  sts.send_email({:to_email => ['joe@public.com'], :text => 'Hello World!'}, false, true)
+  sts.get_send_quota
+
+Note that MailChimp will return an error if you attempt to make STS API calls on an account without Amazon SES integration.
+
 == Examples
 
 Hominid includes some finder methods for campaigns (see Hominid::Campaign) and lists (see Hominid::List) to help with finding each of these resources:
