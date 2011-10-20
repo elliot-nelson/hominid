@@ -19,12 +19,13 @@ module Hominid
       defaults = {
         :api_version        => MAILCHIMP_API_VERSION,
         :secure             => false,
-        :timeout            => nil
+        :timeout            => nil,
+        :domain             => 'api.mailchimp.com'
       }
       @config = defaults.merge(config).freeze
       protocol = @config[:secure] ? 'https' : 'http'
       @api_key = api_key
-      @chimpApi = XMLRPC::Client.new2("#{protocol}://#{dc}.api.mailchimp.com/#{@config[:api_version]}/", nil, @config[:timeout])
+      @chimpApi = XMLRPC::Client.new2("#{protocol}://#{dc}.#{@config[:domain]}/#{@config[:api_version]}/", nil, @config[:timeout])
     end
 
     def method_missing(api_method, *args) # :nodoc:
